@@ -3,7 +3,7 @@ import os
 import caffe
 
 SCRIPT_PATH = os.path.dirname(__file__)
-TEST_IMAGE_PATH = os.path.join(SCRIPT_PATH, "hammer.jpg")
+TEST_IMAGE_PATH = os.path.join(SCRIPT_PATH, "img", "hammer.jpg")
 SYNSET_WORDS = os.path.join(SCRIPT_PATH, "synset_words.txt")
 
 caffe.set_mode_cpu()
