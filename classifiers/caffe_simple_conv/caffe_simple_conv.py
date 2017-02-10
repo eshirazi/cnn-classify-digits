@@ -66,6 +66,6 @@ def test_path(path):
     print "Identified {} of {}, {:.2%}".format(correct, total, float(correct) / float(total))
 
 if __name__ == "__main__":
-    test_path(temp_path("vis"))
-    # test_path(os.path.join(SCRIPT_PATH, "my_samples"))
+    # test_path(temp_path("vis"))
+    test_path(os.path.join(SCRIPT_PATH, "my_samples"))
     # print LABEL_REGEX.findall("/Users/eranshirazi/Home/Dev/cnn-classify-digits/util/../temp/vis/image8900-label9.png")
