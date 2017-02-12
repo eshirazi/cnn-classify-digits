@@ -6,7 +6,7 @@ import numpy as np
 import os
 import caffe
 
-from util.paths import temp_path
+from util.paths import temp_path, data_path
 
 SCRIPT_PATH = os.path.dirname(__file__)
 
@@ -67,5 +67,5 @@ def test_path(path):
 
 if __name__ == "__main__":
     # test_path(temp_path("vis"))
-    test_path(os.path.join(SCRIPT_PATH, "my_samples"))
+    test_path(os.path.join(data_path("my_samples")))
     # print LABEL_REGEX.findall("/Users/eranshirazi/Home/Dev/cnn-classify-digits/util/../temp/vis/image8900-label9.png")

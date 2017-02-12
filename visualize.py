@@ -13,11 +13,11 @@ from util.paths import data_path, temp_path, mkdir_recursive
 
 
 def convert_to_image_files(image_batch_file, label_batch_file, skip_first_n_images=0, save_n_images=100, step=1):
-    image_batch_file = open(data_path(image_batch_file), "rb")
+    image_batch_file = open(data_path("raw", image_batch_file), "rb")
     image_file_header = read_image_file_header(image_batch_file)
     single_image_size = image_file_header["num_rows"] * image_file_header["num_columns"]
 
-    label_batch_file = open(data_path(label_batch_file), "rb")
+    label_batch_file = open(data_path("raw", label_batch_file), "rb")
     label_file_header = read_label_file_header(label_batch_file)
 
     image_batch_file.seek(skip_first_n_images * single_image_size, 1)
@@ -39,7 +39,7 @@ def convert_to_image_files(image_batch_file, label_batch_file, skip_first_n_imag
 
 
 def average_data_set(image_batch_file, sample_approx_n_images):
-    image_batch_file = open(data_path(image_batch_file), "rb")
+    image_batch_file = open(data_path("raw", image_batch_file), "rb")
     image_file_header = read_image_file_header(image_batch_file)
     single_image_size = image_file_header["num_rows"] * image_file_header["num_columns"]
 
@@ -67,11 +67,11 @@ def average_data_set(image_batch_file, sample_approx_n_images):
 
 
 def create_lmdb(lmdb_filename, image_batch_file, label_batch_file):
-    image_batch_file = open(data_path(image_batch_file), "rb")
+    image_batch_file = open(data_path("raw", image_batch_file), "rb")
     image_file_header = read_image_file_header(image_batch_file)
     single_image_size = image_file_header["num_rows"] * image_file_header["num_columns"]
 
-    label_batch_file = open(data_path(label_batch_file), "rb")
+    label_batch_file = open(data_path("raw", label_batch_file), "rb")
     label_file_header = read_label_file_header(label_batch_file)
 
     num_images = image_file_header["num_items"]
@@ -83,7 +83,7 @@ def create_lmdb(lmdb_filename, image_batch_file, label_batch_file):
     # transaction.
     map_size = single_image_size * num_images * 10
 
-    env = lmdb.open(data_path(lmdb_filename), map_size=map_size)
+    env = lmdb.open(data_path("processed", lmdb_filename), map_size=map_size)
 
     size_x = image_file_header["num_columns"]
     size_y = image_file_header["num_rows"]
@@ -108,6 +108,6 @@ def create_lmdb(lmdb_filename, image_batch_file, label_batch_file):
 
 
 if __name__ == "__main__":
-    convert_to_image_files("t10k-images-idx3-ubyte", "t10k-labels-idx1-ubyte", 0, 10000, 100)
+    # convert_to_image_files("t10k-images-idx3-ubyte", "t10k-labels-idx1-ubyte", 0, 10000, 100)
     # print average_data_set("train-images-idx3-ubyte", 1000)
-    # create_lmdb("train.lmdb", "train-images-idx3-ubyte", "train-labels-idx1-ubyte")
+    create_lmdb("train.lmdb", "train-images-idx3-ubyte", "train-labels-idx1-ubyte")
